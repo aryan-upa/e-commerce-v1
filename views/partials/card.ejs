@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem 1rem">
+        <% for (const product of products) { %>
+            <div class="card col-3 mx-auto mt-3" style="">
+                <img src='<%= product.img %>' class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%= product.name %></h5>
+                    <p class="card-text"><%= product.desc %></p>
+                    <h4 class="card-title"><%= product.price %></h4>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a role="button" href="/products/<%= product.id %>" class="btn btn-primary">Show More!</a>
+                        <a role="button" href="/products/<%= product.id %>/edit" class="btn btn-secondary">Update</a>
+                        <form action="/products/<%= product._id %>?_method=DELETE" method="post" style="display: inline-block">
+                            <button type="submit" class="btn btn-danger">DELETE</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>

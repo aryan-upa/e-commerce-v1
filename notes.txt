@@ -1,0 +1,48 @@
+.Referencing and Embedding.
+
+By default, Mongo was not focused on creating relationships between documents or collections, but still to do this, we
+have the method of referencing and embedding, where we embed the reference of a document in another document inside an
+array which is present in another document.
+
+
+Now this embedding takes place in a simple manner, in which Document IDs of connecting documents is stored in the main
+document as an array.
+
+main - document
+User {
+    name:
+    age:
+    address:
+    reviews: [
+        objectID(1), // review 1
+        objectID(2), // review 2
+        objectID(3)  // review 3
+    ]
+    ...
+}
+
+
+connected - documents
+reviews {
+    desc:
+    rating:
+    boughtOn:
+    ...
+}
+
+Types of relationships
+
+1. One to One
+    Single document has only one connected document.
+    Ex: "User" and "Login Info"
+
+2. One to Many
+    Single document is connected to many other connected documents.
+    Ex: "User" and "Reviews"
+
+3. Many to Many
+    Multiple documents are connected to multiple connected documents.
+    Ex: "Students" and "Subjects"
+        A student is connected to multiple subjects.
+        A subject has multiple students.
+

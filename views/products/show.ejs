@@ -6,6 +6,9 @@
         <h5 class="card-title"><%= product.name %></h5>
         <p class="card-text"><%= product.desc %></p>
         <h4 class="card-title"><%= product.price %></h4>
-        <a href="#" class="btn btn-primary">Buy Now!</a>
+        <a role="button" href="/products/<%= product.id %>/edit" class="btn btn-secondary">Update</a>
+        <form action="/products/<%= product._id %>?_method=DELETE" method="post" style="display: inline-block">
+            <button type="submit" class="btn btn-danger">DELETE</button>
+        </form>
     </div>
 </div>

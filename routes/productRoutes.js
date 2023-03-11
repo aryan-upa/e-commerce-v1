@@ -20,9 +20,6 @@ router.get('/show', (req, res) => { // for /products/show
 router.post('/', async (req, res) => {
     const {name, img, desc, price} = req.body;
 
-    // console.log(req.body);
-    // console.log({name, img, desc, price});
-
     await Product.prod.insertMany([{
         name: name,
         price: price,
@@ -39,7 +36,7 @@ router.get('/new', (req, res) => {
 
 router.get('/:productID', async (req, res) => {
     const {productID} = req.params;
-    const product = await Product.prod.findById(productID);
+    const product = await Product.prod.findById(productID).populate('review');
     res.render('./products/show', {product});
 });
 

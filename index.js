@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
 const productRouter = require('./routes/productRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://127.0.0.1:27017/shopping-app').then(() => {
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/products", productRouter);
+app.use("/reviews", reviewRouter);
 
 app.listen(PORT, () => {
     console.log("Listening to port 3000!");

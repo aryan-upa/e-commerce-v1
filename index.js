@@ -7,10 +7,11 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const flash = require("flash");
 const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session");
+const MongoDBStore = require('connect-mongodb-session')(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const user = require("./models/User");
+const cookieParser = require("cookie-parser");
 
 const productRouter = require('./routes/productRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -23,7 +24,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/shopping-app').then(() => {
     console.log('Database could not connect');
 });
 
-const store = new MongoDBStore({
+const Store = new MongoDBStore({
     uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
     collection: 'mySessions'
 });
@@ -39,18 +40,21 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+app.use(cookieParser());
 app.use(methodOverride('_method'));
-app.use(flash());
-
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+        secure: false
     },
-    Store: store
+    Store: Store
 }));
+
+app.use(flash());
+
 
 passport.use(new LocalStrategy(user.authenticate()));
 passport.serializeUser(user.serializeUser());

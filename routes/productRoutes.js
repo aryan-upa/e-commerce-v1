@@ -1,11 +1,6 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
 const Product = require('../models/Product');
-
-app.use(express.urlencoded({
-    extended: true
-}));
 
 router.get('/', async (req, res) => { // for /products/
     const products = await Product.prod.find({});
@@ -60,7 +55,9 @@ router.patch ('/:productID', async (req, res) => {
 
 router.delete('/:productID', async (req, res) => {
     const {productID} = req.params;
-    await Product.prod.deleteOne({_id: productID});
+    const product = await Product.prod.findById({_id: productID});
+
+    await Product.prod.findByIdAndDelete({_id: productID});
     res.redirect('/products');
 })
 

@@ -31,6 +31,7 @@ const Store = new MongoDBStore({
 
 app.set('view engine', "ejs");
 app.engine("ejs", engine);
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', [
     path.join(__dirname, "views"),
     path.join(__dirname, "views", "products")

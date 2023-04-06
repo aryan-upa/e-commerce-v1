@@ -5,10 +5,10 @@
         Modify Item Details
     </div>
     <div class="card-body">
-        <form method="post" action="/products/<%= product.id %>?_method=PATCH">
+        <form method="post" class="validated-form" novalidate action="/products/<%= product.id %>?_method=PATCH">
             <div class="mb-3">
                 <label for="img" class="form-label">Image URL</label>
-                <input name="img" type="url" class="form-control" id="img" aria-describedby="img-url" value="<%=product.img%>">
+                <input name="img" type="url" class="form-control" id="img" aria-describedby="img-url" value="<%=product.img%>" required>
                 <div id="img-url-help" class="form-text">Enter the Image URL!</div>
             </div>
 

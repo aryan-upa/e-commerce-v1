@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const {validateProduct} = require('../middleware');
 
 router.get('/', async (req, res) => { // for /products/
     try {
@@ -22,21 +23,16 @@ router.get('/show', (req, res) => { // for /products/show
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', validateProduct, async (req, res) => {
     try {
         const {name, img, desc, price} = req.body;
-
-        await Product.prod.insertMany([{
-            name: name,
-            price: price,
-            desc: desc,
-            img: img
-        }]);
+        await Product.prod.create({ name, price, desc, img });
 
         res.redirect('/products');
     } catch (err) {
-        res.status(500);
-        res.render('error', {err});
+        res
+            .status(500)
+            .render('error', {err});
     }
 });
 
@@ -66,7 +62,7 @@ router.get('/:productID/edit', async (req, res) => {
     }
 });
 
-router.patch ('/:productID', async (req, res) => {
+router.patch ('/:productID', validateProduct, async (req, res) => {
     try {
         const {productID} = req.params;
         const {name, img, price, desc} = req.body;

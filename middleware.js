@@ -13,9 +13,18 @@ const validateProduct = (req, res, next) => {
 };
 
 const validateReview = (req, res, next) => {
+    const {rating, comment} = req.body;
+    const {error} = reviewSchema.validate({rating, comment});
+
+    if (error) {
+        const message = error.details.map(v => v.message).join(', ');
+        return res.render('error', {err: message});
+    }
+
     next();
 };
 
 module.exports = {
     validateProduct,
+    validateReview
 }

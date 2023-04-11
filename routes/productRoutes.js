@@ -6,7 +6,7 @@ const {validateProduct} = require('../middleware');
 router.get('/', async (req, res) => { // for /products/
     try {
         const products = await Product.prod.find({});
-        res.render('./products/product', {products});
+        res.render('./products/product', {products, msg: req.flash('msg')});
     } catch (err) {
         res.status(500);
         res.render('error', {err});
@@ -28,6 +28,7 @@ router.post('/', validateProduct, async (req, res) => {
         const {name, img, desc, price} = req.body;
         await Product.prod.create({ name, price, desc, img });
 
+        req.flash('msg', 'product added successfully!');
         res.redirect('/products');
     } catch (err) {
         res
@@ -70,7 +71,8 @@ router.patch ('/:productID', validateProduct, async (req, res) => {
         const product = await Product.prod.findByIdAndUpdate(productID, {name, img, price, desc});
         console.log(product);
 
-        res.redirect('/products/'+productID);
+        req.flash('msg', 'product edited successfully!');
+        res.redirect('/products/' + productID);
     } catch (err) {
         res.status(500);
         res.render('error', {err});
@@ -83,6 +85,7 @@ router.delete('/:productID', async (req, res) => {
         const product = await Product.prod.findById({_id: productID});
 
         await Product.prod.findByIdAndDelete({_id: productID});
+        req.flash('msg', 'product removed successfully!');
         res.redirect('/products');
     } catch (err) {
         res.status(500);

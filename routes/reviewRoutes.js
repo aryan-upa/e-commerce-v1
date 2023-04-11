@@ -21,9 +21,10 @@ router.post('/:productID', validateReview, async (req, res) => {
             comment
         });
 
-        await product.review.push(review);
+        product.review.push(review);
         await product.save();
 
+        req.flash('msg', 'added your review!');
         res.redirect('/products/' + productID);
     } catch (err) {
         res

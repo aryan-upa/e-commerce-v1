@@ -1,68 +1,75 @@
 <% layout('../layout/boilerplate') -%>
 
-<div class="row mt-3" style="max-width: 100%">
-    <div class="mx-auto card col-lg-4" style="">
-        <img src='<%= product.img %>' class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title"><%= product.name %></h5>
-            <p class="card-text"><%= product.desc %></p>
-            <h4 class="card-title"><%= product.price %></h4>
-            <a role="button" href="/products/<%= product.id %>/edit" class="btn btn-secondary">Update</a>
-            <form action="/products/<%= product._id %>?_method=DELETE" method="post" style="display: inline-block">
-                <button type="submit" class="btn btn-danger">DELETE</button>
-            </form>
-        </div>
-    </div>
+<section class="container">
 
-    <div class="mx-auto col-lg-6">
-        <div class="card">
-            <div class="card-header">
-                Add Comments
-            </div>
+    <% if (msg && msg.length) { %>
+        <p><%= msg %></p>
+    <% } %>
+
+    <div class="row mt-3" style="max-width: 100%">
+        <div class="mx-auto card col-lg-4" style="">
+            <img src='<%= product.img %>' class="card-img-top" alt="...">
             <div class="card-body">
-                <form method="post" action="/reviews/<%=product.id%>">
-                    <div class="input-group mb-3" style="">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Item Name:</span>
-                        </div>
-                        <input type="text" class="form-control" value="<%= product.name %>" readonly>
-                    </div>
-
-                    <div class="mb-3" style="width: 10rem">
-                        <label for="rating" class="form-label">Rating</label>
-                        <input type="range" class="form-control" id="rating" name="rating" min="1" max="5" step="1" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="comment" class="form-label">Comment</label>
-                        <textarea class="form-control" id="comment" name="comment" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                <h5 class="card-title"><%= product.name %></h5>
+                <p class="card-text"><%= product.desc %></p>
+                <h4 class="card-title"><%= product.price %></h4>
+                <a role="button" href="/products/<%= product.id %>/edit" class="btn btn-secondary">Update</a>
+                <form action="/products/<%= product._id %>?_method=DELETE" method="post" style="display: inline-block">
+                    <button type="submit" class="btn btn-danger">DELETE</button>
                 </form>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row my-3" style="max-width: 100%">
-    <div class="mx-auto col-lg-6">
-        <div class="card">
-            <div class="card-header">
-                Reviews
-            </div>
-            <div class="card-body">
-                <% for (const review of product.review) { %>
-                    <div class="card my-3">
-                        <div class="card-header">
-                            Rating: <%= review.rating %>
+        <div class="mx-auto col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    Add Comments
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/reviews/<%=product.id%>">
+                        <div class="input-group mb-3" style="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Item Name:</span>
+                            </div>
+                            <input type="text" class="form-control" value="<%= product.name %>" readonly>
                         </div>
-                        <div class="card-body">
-                            Desc: <%= review.comment %>
+
+                        <div class="mb-3" style="width: 10rem">
+                            <label for="rating" class="form-label">Rating</label>
+                            <input type="range" class="form-control" id="rating" name="rating" min="1" max="5" step="1" required>
                         </div>
-                    </div>
-                <% } %>
+
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Comment</label>
+                            <textarea class="form-control" id="comment" name="comment" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="row my-3" style="max-width: 100%">
+        <div class="mx-auto col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    Reviews
+                </div>
+                <div class="card-body">
+                    <% for (const review of product.review) { %>
+                        <div class="card my-3">
+                            <div class="card-header">
+                                Rating: <%= review.rating %>
+                            </div>
+                            <div class="card-body">
+                                Desc: <%= review.comment %>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

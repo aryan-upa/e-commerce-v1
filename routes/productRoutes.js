@@ -44,7 +44,7 @@ router.get('/:productID', async (req, res) => {
     try {
         const {productID} = req.params;
         const product = await Product.prod.findById(productID).populate('review');
-        res.render('./products/show', {product});
+        res.render('./products/show', {product, msg: req.flash('msg')});
     } catch (err) {
         res.status(500);
         res.render('error', {err});

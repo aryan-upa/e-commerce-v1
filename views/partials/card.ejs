@@ -1,8 +1,8 @@
 <div class="container">
-    <div class="wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem 1rem">
+    <div class="wrapper" style="display: flex; flex-wrap: wrap; gap: 2rem 1rem; align-items: center;">
         <% for (const product of products) { %>
             <div class="card col-3 mx-auto mt-3" style="">
-                <img src='<%= product.img %>' class="card-img-top" alt="...">
+                <img src='<%= product.img %>' class="card-img-top" style="max-height: 10rem; object-fit: cover" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><%= product.name %></h5>
                     <p class="card-text"><%= product.desc %></p>

@@ -28,7 +28,7 @@ router.post('/', validateProduct, async (req, res) => {
         const {name, img, desc, price} = req.body;
         await Product.prod.create({ name, price, desc, img });
 
-        req.flash('msg', 'product added successfully!');
+        req.flash('success', 'product added successfully!');
         res.redirect('/products');
     } catch (err) {
         res
@@ -71,7 +71,7 @@ router.patch ('/:productID', validateProduct, async (req, res) => {
         const product = await Product.prod.findByIdAndUpdate(productID, {name, img, price, desc});
         console.log(product);
 
-        req.flash('msg', 'product edited successfully!');
+        req.flash('success', 'product edited successfully!');
         res.redirect('/products/' + productID);
     } catch (err) {
         res.status(500);
@@ -85,7 +85,7 @@ router.delete('/:productID', async (req, res) => {
         const product = await Product.prod.findById({_id: productID});
 
         await Product.prod.findByIdAndDelete({_id: productID});
-        req.flash('msg', 'product removed successfully!');
+        req.flash('success', 'product removed successfully!');
         res.redirect('/products');
     } catch (err) {
         res.status(500);

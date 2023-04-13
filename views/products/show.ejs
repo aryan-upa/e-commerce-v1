@@ -2,14 +2,7 @@
 
 <section class="container">
 
-    <% if (msg && msg.length) { %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <span><%=msg%> </span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    <% } %>
-
-
+    <%- include('../partials/flash') %>
 
     <div class="row mt-3" style="max-width: 100%">
         <div class="mx-auto card col-lg-4" style="">

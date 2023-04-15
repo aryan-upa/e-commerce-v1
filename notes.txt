@@ -46,3 +46,43 @@ Types of relationships
         A student is connected to multiple subjects.
         A subject has multiple students.
 
+Authentication & Authorization:
+
+    Authentication: Verifying the digital signature of a user to validate and know whether he is a real user or not,
+    provided on which we allow user to use the website or not.
+
+    Authorization: To check that this actions which the authenticated user is trying to do, is allowed to do or not.
+    Like deleting a comment or removing a post etc.
+
+Storing Passwords:
+    Passwords are never stored directly in our databases due to security reason, like database leak or anything else,
+    therefore to store the password, we hash them. To hash, is to create a cryptographic key based on the input which
+    is of defined length and has some characteristics.
+
+    Properties of a good Hashing Function are:
+
+    One-Way functions:
+        We store passwords in the database only after encoding it, to encode or to encrypt it we use one-way functions.
+        A one-way function is a function which works in one direction and to revert it is infeasible.
+
+        Input -> [one-way function] -> output -> [revert] -> X // not possible. (there may be a case of possibility)
+        Example: Math.abs()
+
+    Avalanche Effect:
+        For small change in the input, the output must change drastically, and it should always be of a constant length.
+
+    Deterministic:
+        For same input, there must always be same output. Never same input will have two outputs.
+
+    Slow:
+        Password generating function has to be deliberately slow, such that the methods like Reverse-lookup-table do not
+        work.
+
+    Salt:
+        A random value added to the password while creation due to which even same passwords won't have exactly same
+        hashes.
+
+    Checking:
+        To check a user enters a valid password or not, we re hash the password and then match it against the password
+        stored in the database.
+
